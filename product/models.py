@@ -8,7 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 class Product(models.Model):
     PROname = models.CharField(max_length=100, verbose_name=_("Product name"))
-    #PROcategory =
+    PROcategory =models.ForeignKey('Category', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Category"))
+    PRObrand = models.ForeignKey('settings.Brand', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Product Brand"))
     PROdesc = models.TextField(verbose_name=_("Product description"))
     PROprice = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
     PROcost = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Cost"))
