@@ -11,6 +11,7 @@ class Product(models.Model):
     PROcategory =models.ForeignKey('Category', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Category"))
     PRObrand = models.ForeignKey('settings.Brand', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Product Brand"))
     PROdesc = models.TextField(verbose_name=_("Product description"))
+    PROimage = models.ImageField(upload_to='product/primary/', verbose_name=_("Image"), blank=True, null=True)
     PROprice = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
     PROcost = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Cost"))
     PROcreated = models.DateTimeField(verbose_name=_("Created at"))

@@ -1,3 +1,26 @@
-{%for product in all_product%}
-<h1>{{product}}</h1>
-{%endfor%}
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block product %}
+
+{% for product in all_product %}
+<div class="col-md-4 mt-3">
+    <div class="card" style="width: 18rem;">
+        {% if product.PROimage %}
+           <img src="{{product.PROimage.url}}" class="card-img-top product-img" alt="...">
+        {% else %}
+           <img src="{% static 'site_static/img/default.png' %}" class="card-img-top product-img" alt="...">            
+        {% endif %}
+              
+        <div class="card-body">
+          <h5 class="card-title">{{product.PROname}}</h5>
+          <p class="card-text">{{product.PROdesc}}</p>
+          <a href="#" class="btn btn-primary">Add To Cart</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock product %}

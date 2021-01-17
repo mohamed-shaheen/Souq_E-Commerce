@@ -1,0 +1,24 @@
+#profile{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
+}
+
+.order_success{
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+#profile_review{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border: 1px solid red;
+}
+.product-img{
+    max-height: 215px;
+    max-width: 286px;
+
+}
