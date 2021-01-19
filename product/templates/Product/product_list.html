@@ -15,7 +15,7 @@
         {% endif %}
               
         <div class="card-body">
-          <h5 class="card-title">{{product.PROname}}</h5>
+          <h5 class="card-title"><a href="{% url 'products:product_detail' product.id %}">{{product.PROname}}</a></h5>
           <p class="card-text">{{product.PROdesc}}</p>
           <a href="#" class="btn btn-primary">Add To Cart</a>
         </div>
@@ -24,3 +24,42 @@
 {% endfor %}
 
 {% endblock product %}
+
+{% block paginator %}
+
+<div class="container mt-5">
+  <div class="row">
+      {% if all_product.has_other_pages %}
+         <nav aria-label="Page navigation example">
+           <ul class="pagination justify-content-center" style="margin:20px 0">
+          {% if all_product.has_previous %}
+             <li class="page-item"><a class="page-link" href="?page={{ all_product.previous_page_number }}">Previous</a></li>
+          {% else %}
+             <li class="disabeld"></li>   
+          {% endif %}
+          {% for pages in all_product.paginator.page_range %}
+
+          {% if all_product.number == pages %}
+              <li class="page-item active">
+                <span class="page-link">
+                  {{ pages }}
+                  <span class="sr-only"></span>
+                </span>
+              </li>
+          {% else %}
+             <li class="page-item"><a class="page-link" href="?page={{ pages }}">{{pages}}</a></li>
+          {% endif %}   
+
+          {% endfor %}   
+          {% if all_product.has_next %}   
+             <li class="page-item"><a class="page-link" href="?page={{ all_product.next_page_number }}">Next</a></li>
+          {% else %}
+             <li class="disabeld"></li>   
+          {% endif %}   
+           </ul>
+         </nav>
+      {% endif %}   
+  </div>
+</div>
+
+{% endblock paginator %}
