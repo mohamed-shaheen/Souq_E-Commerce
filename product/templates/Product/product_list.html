@@ -212,8 +212,13 @@
 
               <!--Card image-->
               <div class="view overlay">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg" class="card-img-top"
-                  alt="">
+                {% if product.PROimage %}
+                    <img src="{{product.PROimage.url}}" class="card-img-top"
+                      alt="">
+                {% else %}
+                    <img src="{% static 'site_static/img/default.png' %}" class="card-img-top"
+                    alt="">
+                {% endif %} 
                 <a>
                   <div class="mask rgba-white-slight"></div>
                 </a>
@@ -223,19 +228,33 @@
               <!--Card content-->
               <div class="card-body text-center">
                 <!--Category & Title-->
-                <a href="{% url 'products:product_detail' product.id %}" class="grey-text">
-                  <h5>Shirt</h5>
+                <a href="#" class="grey-text">
+                  <h5>{{product.PRObrand}}</h5>
                 </a>
                 <h5>
                   <strong>
-                    <a href="" class="dark-grey-text">Denim shirt
-                      <span class="badge badge-pill danger-color">NEW</span>
+                    <a href="{% url 'products:product_detail' product.PROslug %}" class="dark-grey-text">{{product.PROname}}
                     </a>
+                    <p>
+                       {% if product.PROdisprice > 0 %}
+                          <span class="badge badge-pill green mr-1">SALE</span>
+                       {% endif %}
+                       {% if product.PROnew %}
+                           <span class="badge badge-pill blue mr-1">NEW</span>
+                       {% endif %} 
+                       {% if product.PRObestsaler %}
+                           <span class="badge badge-pill red mr-1">Bestseller</span>
+                       {% endif %}   
+                    </p>
                   </strong>
                 </h5>
 
                 <h4 class="font-weight-bold blue-text">
-                  <strong>120$</strong>
+                  {% if product.PROdisprice > 0 %}
+                     <strong>{{product.PROdisprice}}$</strong>
+                  {% else %}
+                      <strong>{{product.PROprice}}$</strong> 
+                  {% endif %}      
                 </h4>
 
               </div>

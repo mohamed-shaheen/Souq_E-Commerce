@@ -1,6 +1,6 @@
 from django.db import models
-from django.db.models.base import Model
 from django.utils.translation import ugettext_lazy as _
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -13,8 +13,23 @@ class Product(models.Model):
     PROdesc = models.TextField(verbose_name=_("Product description"))
     PROimage = models.ImageField(upload_to='product/primary/', verbose_name=_("Image"), blank=True, null=True)
     PROprice = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Price"))
+    PROdisprice = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Discount Price"))
     PROcost = models.DecimalField(max_digits=5, decimal_places=2, verbose_name=_("Cost"))
     PROcreated = models.DateTimeField(verbose_name=_("Created at"))
+
+    PROslug = models.SlugField(blank=True, null=True, verbose_name=_("Slug"))
+    PROnew = models.BooleanField(default=True, verbose_name=_("NEW"))
+    PRObestsaler = models.BooleanField(default=False, verbose_name=_("Best Saler"))
+
+
+    class Meta:
+        verbose_name = _("Product")
+        verbose_name_plural = _("Products")
+
+    def save(self, *args, **kwargs):
+        if not self.PROslug :
+            self.PROslug = slugify(self.PROname )
+        super(Product, self).save(*args, **kwargs)       
 
     def __str__(self):
         return self.PROname

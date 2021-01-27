@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 
@@ -14,7 +15,13 @@
         <!--Grid column-->
         <div class="col-md-6 mb-4">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/14.jpg" class="img-fluid" alt="">
+          {% if product_info.PROimage %}
+              <img src="{{product_info.PROimage.url}}" class="img-fluid"
+                alt="">
+          {% else %}
+              <img src="{% static 'site_static/img/default.png' %}" class="img-fluid"
+              alt="">
+          {% endif %}
 
         </div>
         <!--Grid column-->
@@ -27,28 +34,39 @@
 
             <div class="mb-3">
               <a href="">
-                <span class="badge purple mr-1">Category 2</span>
+                <span class="badge purple mr-1">{{product_info.PROcategory}}</span>
               </a>
+              {% if product_info.PROdisprice > 0%}
+              <a href="">
+                <span class="badge green mr-1">SALE</span>
+              </a>
+              {% endif %}
+              {% if product_info.PROnew %}  
               <a href="">
                 <span class="badge blue mr-1">New</span>
               </a>
+              {% endif %}
+              {% if product_info.PRObestsaler %}
               <a href="">
                 <span class="badge red mr-1">Bestseller</span>
               </a>
+              {% endif %}
             </div>
-
+            <p class="lead font-weight-bold">{{product_info.PROname}}</p>
             <p class="lead">
-              <span class="mr-1">
-                <del>$200</del>
-              </span>
-              <span>$100</span>
+                {% if product_info.PROdisprice > 0%}  
+                      <span class="mr-1">
+                        <del>${{product_info.PROprice}}</del>
+                      </span>
+                      <span>${{product_info.PROdisprice}}</span>
+                {% else %}
+                      <span>${{product_info.PROprice}}</span>
+                {% endif %}             
             </p>
-
+                
             <p class="lead font-weight-bold">Description</p>
 
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor suscipit libero eos atque quia ipsa
-              sint voluptatibus!
-              Beatae sit assumenda asperiores iure at maxime atque repellendus maiores quia sapiente.</p>
+            <p>{{product_info.PROdesc}}</p>
 
             <form class="d-flex justify-content-left">
               <!-- Default input -->
@@ -76,7 +94,7 @@
         <!--Grid column-->
         <div class="col-md-6 text-center">
 
-          <h4 class="my-4 h4">Additional information</h4>
+          <h4 class="my-4 h4">Accessories</h4>
 
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit
             voluptates,
@@ -95,6 +113,7 @@
         <div class="col-lg-4 col-md-12 mb-4">
 
           <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
+          <h4 class="my-4 h4">Accessories</h4>
 
         </div>
         <!--Grid column-->
@@ -103,6 +122,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
 
           <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+          <h4 class="my-4 h4">Accessories</h4>
 
         </div>
         <!--Grid column-->
@@ -111,6 +131,7 @@
         <div class="col-lg-4 col-md-6 mb-4">
 
           <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+          <h4 class="my-4 h4">Accessories</h4>
 
         </div>
         <!--Grid column-->
