@@ -233,7 +233,7 @@
                 </a>
                 <h5>
                   <strong>
-                    <a href="{% url 'products:product_detail' product.PROslug %}" class="dark-grey-text">{{product.PROname}}
+                    <a href="{{ product.get_absolute_url }}" class="dark-grey-text">{{product.PROname}}
                     </a>
                     <p>
                        {% if product.PROdisprice > 0 %}

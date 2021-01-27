@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
+from django.urls import reverse
 # Create your models here.
 
 
@@ -22,14 +23,18 @@ class Product(models.Model):
     PRObestsaler = models.BooleanField(default=False, verbose_name=_("Best Saler"))
 
 
+    def save(self, *args, **kwargs):
+        if not self.PROslug :
+            self.PROslug = slugify(self.PROname )
+        super(Product, self).save(*args, **kwargs)
+
     class Meta:
         verbose_name = _("Product")
         verbose_name_plural = _("Products")
 
-    def save(self, *args, **kwargs):
-        if not self.PROslug :
-            self.PROslug = slugify(self.PROname )
-        super(Product, self).save(*args, **kwargs)       
+    def get_absolute_url(self):
+        return reverse("products:product_detail", kwargs={"slug": self.PROslug})
+               
 
     def __str__(self):
         return self.PROname
