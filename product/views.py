@@ -7,6 +7,11 @@ from .models import Product
 
 def product_list(request):
     all_product = Product.objects.all()
+    if 'searchbar' in request.GET:
+        name = request.GET['searchbar']
+        if name:
+            all_product = all_product.filter(PROname__icontains=name)
+
     paginator = Paginator(all_product, 8)
 
     page_number = request.GET.get('page')
