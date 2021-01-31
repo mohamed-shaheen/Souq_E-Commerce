@@ -34,6 +34,6 @@ def product_detail(request, slug):
 
 def category_pages(request, slug):
     category_info = get_object_or_404(Category, CATslug=slug)
-    #pro = Product.objects.filter(Category__CATname__icontains=)
-    context = {'category_info':category_info}
-    return render(request, 'category/category_detail.html', context)    
+    products = category_info.procategory.all()
+    context = {'category_info':category_info, 'products': products}
+    return render(request, 'Product/category_detail.html', context)    

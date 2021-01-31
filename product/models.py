@@ -9,7 +9,7 @@ from django.urls import reverse
 
 class Product(models.Model):
     PROname = models.CharField(max_length=100, verbose_name=_("Product name"))
-    PROcategory =models.ForeignKey('Category', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Category"))
+    PROcategory =models.ForeignKey('Category', related_name='procategory',on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Category"))
     PRObrand = models.ForeignKey('settings.Brand', on_delete=models.CASCADE, blank=True, null=True, verbose_name=_("Product Brand"))
     PROdesc = models.TextField(verbose_name=_("Product description"))
     PROimage = models.ImageField(upload_to='product/primary/', verbose_name=_("Image"), blank=True, null=True)
