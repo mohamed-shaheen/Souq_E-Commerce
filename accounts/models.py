@@ -33,7 +33,7 @@ class Profile(models.Model):
         return '%s' %(self.user)
 
     def get_absolute_url(self):
-        return reverse("accounts:Profile_detail", kwargs={"slug": self.slug})
+        return reverse("accounts:profile", kwargs={"slug": self.slug})
 
     def create_profile(sender, **kwargs):
         if kwargs['created']:

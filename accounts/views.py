@@ -1,8 +1,9 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import login, authenticate
 from .models import Profile
 from .forms import UserForm, ProfileForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -25,4 +26,10 @@ def signup(request):
 
     context = {'form' : form}
 
-    return render(request, 'registration/signup.html', context)        
+    return render(request, 'registration/signup.html', context) 
+
+@login_required
+def profile(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    context = {'profile' : profile } 
+    return render(request, 'profile.html', context)           
