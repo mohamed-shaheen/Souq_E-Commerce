@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load cart_tag %}
+{% block title %}
+<title>Souq Cart</title>
+{% endblock title %}
+
+
+{% block body %}
+
+
+  <!--Main layout-->
+  <main>
+    <div class="container mt-5">
+
+     <!--Grid row-->
+     <div class="row d-flex justify-content-center wow fadeIn">
+
+      <!--Grid column-->
+      <div class="col-md-6 text-center mt-5">
+
+        <h4 class="my-4 h4">My orders</h4>
+        <table class="table">
+          <caption><a href="{% url 'products:cart_clear' %}" class="btn btn-danger">Clear Cart</a></caption>
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total price</th>
+              <th>Add one item</th>
+              <th>Remove one item</th>
+              <th>Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for key,value in request.session.cart.items %}
+             
+            <tr>
+              <th scope="row">{{forloop.counter}}</th>
+              <td>{{value.name}}</td>
+              <td>{{value.price}}</td>
+              <td>{{value.quantity}}</td>
+              <td>{{ value.price|multiply:value.quantity }}</td>
+              <td><a href="{% url 'products:item_increment' value.product_id %}" class="btn btn-success">Increment</a></td>
+              <td><a href="{% url 'products:item_decrement' value.product_id %}" class="btn btn-warning">Decrement</a></td>
+              <td><a href="{% url 'products:item_clear' value.product_id %}" class="btn btn-danger">Remove</a></td>
+            </tr>
+      
+          {% endfor %}  
+
+            <tr>
+              <th scope="row">Total bay</th>
+              <td></td>
+              <td></td>
+              <td>{{request.session.cart|length}}</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+
+
+    </div>
+  </main>
+  <!--Main layout-->
+  {% endblock body %}
