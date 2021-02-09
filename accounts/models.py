@@ -12,7 +12,7 @@ from django.db.models.signals import post_save
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, verbose_name=_("user"), on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='user_profile', verbose_name=_("user"), on_delete=models.CASCADE)
     image = models.ImageField(upload_to='profile_img', verbose_name=_("Image"), blank=True, null=True)
     addres = models.CharField(max_length=100, verbose_name=_("Address"))
     join_date = models.DateTimeField(default=datetime.datetime.now, verbose_name=_("join date"))

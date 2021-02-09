@@ -94,9 +94,9 @@
                 <i class="far fa-user mr-2"></i>Profile
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for profile in pro_context %}
-                <a class="dropdown-item" href="{{ profile.get_absolute_url }}">My profile</a>
-                {% endfor %}
+                
+                <a class="dropdown-item" href="{{ request.user.user_profile.get_absolute_url }}">My profile</a>
+                
                 <a class="dropdown-item" href="#">Edit my profile</a>
                 <a class="dropdown-item" href="#">Change password</a>
                 <div class="dropdown-divider"></div>
