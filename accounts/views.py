@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render, get_object_or_404
+from django.http import Http404
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import login, authenticate
 from .models import Profile
@@ -31,5 +32,8 @@ def signup(request):
 @login_required
 def profile(request, slug):
     profile = get_object_or_404(Profile, slug=slug)
-    context = {'profile' : profile } 
+    if request.user == profile.user:
+        context = {'profile' : profile }
+    else:
+        raise Http404     
     return render(request, 'profile.html', context)           
